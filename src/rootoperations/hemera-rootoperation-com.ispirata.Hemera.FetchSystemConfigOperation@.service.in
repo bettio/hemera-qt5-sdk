@@ -1,0 +1,13 @@
+[Unit]
+Description=Hemera root operation com.ispirata.Hemera.FetchSystemConfigOperation
+Requires=hemera-rootoperation-com.ispirata.Hemera.FetchSystemConfigOperation.socket
+After=local-fs.target
+
+[Service]
+Type=notify
+ExecStart=@HEMERA_ROOTOPERATION_INSTALL_BIN_DIR@/hemera-rootoperation-com.ispirata.Hemera.FetchSystemConfigOperation
+# User is always root
+User=root
+Group=root
+
+StandardOutput=journal

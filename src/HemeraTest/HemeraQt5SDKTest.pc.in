@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=@INSTALL_LIB_DIR@
+includedir=@INSTALL_INCLUDE_DIR@/HemeraQt5SDK
+
+Name: HemeraQt5SDK Test
+Description: HemeraQt5SDK Test module
+Version: @HEMERA_QT5_SDK_VERSION@
+Libs: -L${libdir} -lHemeraQt5SDKTest
+Cflags: -I${includedir}/HemeraTest -I${includedir}
+Requires: HemeraQt5SDKCore >= @HEMERA_QT5_SDK_VERSION@ Qt5Test >= 5.1.0

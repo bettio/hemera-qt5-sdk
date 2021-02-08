@@ -1,0 +1,24 @@
+<!DOCTYPE busconfig PUBLIC
+ "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+
+    <!-- Reject everyone else -->
+    <policy context="default">
+        <deny own="%2"/>
+        <deny send_destination="%2"/>
+    </policy>
+
+    <!-- Only the application user can own the application helper -->
+    <policy user="%1">
+        <allow own="%2"/>
+    </policy>
+
+    <!-- HemeraMissionControl is welcome, though. root can access -->
+    <policy user="root">
+        <allow send_destination="%2"/>
+        <allow send_interface="%2"/>
+        <allow send_interface="com.ispirata.Hemera.Application"/>
+    </policy>
+
+</busconfig>

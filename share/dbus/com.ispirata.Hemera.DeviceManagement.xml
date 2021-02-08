@@ -1,0 +1,22 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.ispirata.Hemera.DeviceManagement">
+    <method name="Reboot">
+    </method>
+    <method name="Shutdown">
+    </method>
+    <method name="FactoryReset">
+    </method>
+
+    <method name="SetGlobalTimeZone">
+      <arg type="s" direction="in" name="timezone_iana_id" />
+    </method>
+    <method name="SetGlobalLocale">
+      <arg type="s" direction="in" name="locale_name" />
+    </method>
+
+    <method name="SetSystemDateTime">
+      <arg type="x" direction="in" name="date_time" />
+    </method>
+  </interface>
+</node>

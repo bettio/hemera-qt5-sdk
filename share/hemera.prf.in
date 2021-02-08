@@ -1,0 +1,37 @@
+INCLUDEPATH += @INSTALL_INCLUDE_DIR@
+
+LIBS += -L@INSTALL_LIB_DIR@
+for(HEMERALIB, HEMERA) {
+    LIBS += -lHemeraQt5SDK$$HEMERALIB
+}
+
+hemera.target = hemera
+hemera.commands = @HEMERA_APPLICATION_TOOLS_DIR@/hemera-application-gen $$hemera.hafile $$TARGET || return 1; \
+    @HEMERA_APPLICATION_TOOLS_DIR@/hemera-properties-gen $$hemera.hafile $$lower($$hemera.properties).h \
+    $$lower($$hemera.properties).cpp $$hemera.properties || return 1; \
+    echo \"Distribution files for Hemera Application generated.\"
+
+GENERATED_SOURCES += $$lower($$hemera.properties).cpp
+
+appinstall.path = @HEMERA_APPLICATION_INSTALL_BIN_DIR@
+appinstall.files = $${TARGET}
+
+hemera_clean.commands = rm $${hemera.appid}.conf $${hemera.appid}.service
+
+hemera_service.files = $${hemera.appid}.service
+hemera_service.path = @HEMERA_APPLICATION_SYSTEMD_SERVICE_DIR@
+
+hemera_conf.files = $${hemera.appid}.conf
+hemera_conf.path = @HEMERA_APPLICATION_DBUS_POLICY_FILES_DIR@
+
+PRE_TARGETDEPS = hemera
+
+INSTALLS += hemera_conf hemera_service appinstall
+
+QMAKE_EXTRA_TARGETS += hemera hemera_clean
+
+# Generate spec file
+generate-spec-file.target = generate-spec-file
+generate-spec-file.commands = @HEMERA_APPLICATION_TOOLS_DIR@/hemera-spec-gen $$hemera.hafile qmake $$TARGET tbd || return 1; \
+    echo \"Spec for Hemera Application generated.\"
+generate-spec-file_clean.commands = rm $${hemera.appid}.spec

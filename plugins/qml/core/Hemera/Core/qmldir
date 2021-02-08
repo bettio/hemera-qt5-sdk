@@ -1,0 +1,3 @@
+module com.ispirata.Hemera.Core
+plugin HemeraQmlCore
+typeinfo com.ispirata.Hemera.Core.qmltypes

@@ -1,0 +1,13 @@
+[Unit]
+Description=Hemera root operation %1
+Requires=hemera-rootoperation-%1.socket
+After=local-fs.target
+
+[Service]
+Type=notify
+ExecStart=%2
+# User is always root
+User=root
+Group=root
+
+StandardOutput=journal

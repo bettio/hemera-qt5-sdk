@@ -1,0 +1,73 @@
+
+if (CMAKE_VERSION VERSION_LESS 2.8.3)
+    message(FATAL_ERROR "Hemera Qt SDK requires at least CMake version 2.8.3")
+endif()
+
+get_filename_component(_hemeraQtSDKSoftwareManagement_install_prefix @CMAKE_INSTALL_PREFIX@ ABSOLUTE)
+
+# For backwards compatibility only. Use HemeraQt5SDKSoftwareManagement_VERSION instead.
+set(HemeraQt5SDKSoftwareManagement_VERSION_STRING @HEMERA_QT5_SDK_VERSION@)
+
+set(HemeraQt5SDKSoftwareManagement_LIBRARIES HemeraQt5SDK::SoftwareManagement)
+
+if (NOT TARGET HemeraQt5SDK::SoftwareManagement)
+
+    set(_HemeraQt5SDKSoftwareManagement_OWN_INCLUDE_DIRS @SOFTWAREMANAGEMENT_INCLUDE_DIRS@)
+    set(HemeraQt5SDKSoftwareManagement_INCLUDE_DIRS ${_HemeraQt5SDKSoftwareManagement_OWN_INCLUDE_DIRS})
+
+    set(HemeraQt5SDKSoftwareManagement_DEFINITIONS "")
+    set(HemeraQt5SDKSoftwareManagement_COMPILE_DEFINITIONS "")
+
+    set(_HemeraQt5SDKSoftwareManagement_MODULE_DEPENDENCIES "Core")
+
+    set(_HemeraQt5SDKSoftwareManagement_FIND_DEPENDENCIES_REQUIRED)
+    if (HemeraQt5SDKSoftwareManagement_FIND_REQUIRED)
+        set(_HemeraQt5SDKSoftwareManagement_FIND_DEPENDENCIES_REQUIRED REQUIRED)
+    endif()
+    set(_HemeraQt5SDKSoftwareManagement_FIND_DEPENDENCIES_QUIET)
+    if (HemeraQt5SDKSoftwareManagement_FIND_QUIETLY)
+        set(_HemeraQt5SDKSoftwareManagement_DEPENDENCIES_FIND_QUIET QUIET)
+    endif()
+    set(_HemeraQt5SDKSoftwareManagement_FIND_VERSION_EXACT)
+    if (HemeraQt5SDKSoftwareManagement_FIND_VERSION_EXACT)
+        set(_HemeraQt5SDKSoftwareManagement_FIND_VERSION_EXACT EXACT)
+    endif()
+
+    foreach(_module_dep ${_HemeraQt5SDKSoftwareManagement_MODULE_DEPENDENCIES})
+        if (NOT HemeraQt5SDK${_module_dep}_FOUND)
+            find_package(HemeraQt5SDK${_module_dep}
+                ${HemeraQt5SDKSoftwareManagement_VERSION_STRING} ${_HemeraQt5SDKSoftwareManagement_FIND_VERSION_EXACT}
+                ${_HemeraQt5SDKSoftwareManagement_DEPENDENCIES_FIND_QUIET}
+                ${_HemeraQt5SDKSoftwareManagement_FIND_DEPENDENCIES_REQUIRED}
+                PATHS "${CMAKE_CURRENT_LIST_DIR}/.." NO_DEFAULT_PATH
+            )
+        endif()
+
+        if (NOT HemeraQt5SDK${_module_dep}_FOUND)
+            set(HemeraQt5SDKSoftwareManagement_FOUND False)
+            return()
+        endif()
+
+        list(APPEND HemeraQt5SDKSoftwareManagement_INCLUDE_DIRS "${HemeraQt5SDK${_module_dep}_INCLUDE_DIRS}")
+        list(APPEND HemeraQt5SDKSoftwareManagement_DEFINITIONS ${HemeraQt5SDK${_module_dep}_DEFINITIONS})
+        list(APPEND HemeraQt5SDKSoftwareManagement_COMPILE_DEFINITIONS ${HemeraQt5SDK${_module_dep}_COMPILE_DEFINITIONS})
+        list(APPEND HemeraQt5SDKSoftwareManagement_EXECUTABLE_COMPILE_FLAGS ${HemeraQt5SDK${_module_dep}_EXECUTABLE_COMPILE_FLAGS})
+    endforeach()
+    list(REMOVE_DUPLICATES HemeraQt5SDKSoftwareManagement_INCLUDE_DIRS)
+    list(REMOVE_DUPLICATES HemeraQt5SDKSoftwareManagement_DEFINITIONS)
+    list(REMOVE_DUPLICATES HemeraQt5SDKSoftwareManagement_COMPILE_DEFINITIONS)
+    if (HemeraQt5SDKSoftwareManagement_EXECUTABLE_COMPILE_FLAGS)
+        list(REMOVE_DUPLICATES HemeraQt5SDKSoftwareManagement_EXECUTABLE_COMPILE_FLAGS)
+    endif()
+
+    set(_HemeraQt5SDKSoftwareManagement_LIB_DEPENDENCIES "HemeraQt5SDK::Core Qt5::Qml")
+
+    # Target management
+    include("${CMAKE_CURRENT_LIST_DIR}/HemeraQt5SDKSoftwareManagementTargets.cmake")
+
+    set_property(TARGET HemeraQt5SDK::SoftwareManagement PROPERTY
+        INTERFACE_INCLUDE_DIRECTORIES ${_HemeraQt5SDKSoftwareManagement_OWN_INCLUDE_DIRS})
+    set_property(TARGET HemeraQt5SDK::SoftwareManagement PROPERTY
+        INTERFACE_COMPILE_DEFINITIONS ${HemeraQt5SDKSoftwareManagement_COMPILE_DEFINITIONS})
+
+endif()

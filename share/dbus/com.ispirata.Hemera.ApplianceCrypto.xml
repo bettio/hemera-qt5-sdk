@@ -1,0 +1,23 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+                      "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.ispirata.Hemera.ApplianceCrypto">
+    <method name="DeviceKey">
+        <arg name="devicekey" type="ay" direction="out"/>
+    </method>
+
+    <method name="ClientSSLCertificate">
+        <arg name="pkey" type="ay" direction="out"/>
+        <arg name="crt" type="ay" direction="out"/>
+    </method>
+
+    <method name="LocalCA">
+        <arg name="ca" type="ay" direction="out"/>
+    </method>
+
+    <method name="SignSSLCertificate">
+        <arg name="csr" type="ay" direction="in"/>
+        <arg name="crt" type="ay" direction="out"/>
+    </method>
+  </interface>
+</node>

@@ -1,0 +1,3 @@
+module com.ispirata.Hemera.SoftwareManagement
+plugin HemeraQmlSoftwareManagement
+typeinfo com.ispirata.Hemera.SoftwareManagement.qmltypes

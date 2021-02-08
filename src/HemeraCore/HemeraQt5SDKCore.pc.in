@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=@INSTALL_LIB_DIR@
+includedir=@INSTALL_INCLUDE_DIR@/HemeraQt5SDK
+
+Name: HemeraQt5SDK Core
+Description: HemeraQt5SDK Core module
+Version: @HEMERA_QT5_SDK_VERSION@
+Libs: -L${libdir} -lHemeraQt5SDKCore
+Cflags: -I${includedir}/HemeraCore -I${includedir}
+Requires: Qt5Core >= 5.1.0 Qt5DBus >= 5.1.0 Qt5Network >= 5.1.0 libsystemd-daemon libsystemd-journal

@@ -1,0 +1,32 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.ispirata.Hemera.RemovableStorageManager">
+    <method name="ListDevices">
+        <arg type="ay" direction="out" name="json_descriptor" />
+    </method>
+    <method name="Mount">
+        <arg type="s" direction="in" name="device_path" />
+        <arg type="i" direction="in" name="mount_options" />
+        <arg type="s" direction="out" name="mountpoint" />
+    </method>
+    <method name="Unmount">
+        <arg type="s" direction="in" name="device_path" />
+    </method>
+
+    <signal name="DevicesChanged">
+      <arg type="ay" direction="out" name="json_descriptor" />
+    </signal>
+    <signal name="DeviceAdded">
+      <arg type="ay" direction="out" name="json_descriptor" />
+    </signal>
+    <signal name="DeviceRemoved">
+      <arg type="s" direction="out" name="device_name" />
+    </signal>
+    <signal name="DeviceMounted">
+      <arg type="ay" direction="out" name="json_descriptor" />
+    </signal>
+    <signal name="DeviceUnmounted">
+      <arg type="ay" direction="out" name="json_descriptor" />
+    </signal>
+  </interface>
+</node>

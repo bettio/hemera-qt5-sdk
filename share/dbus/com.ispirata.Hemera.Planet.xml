@@ -1,0 +1,20 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.ispirata.Hemera.Planet">
+    <method name="LaunchSatellite">
+      <arg type="s" direction="in" />
+    </method>
+    <method name="ShutdownSatellite">
+      <arg type="s" direction="in" />
+    </method>
+
+    <method name="ActivateSatellites">
+      <arg type="as" direction="in" />
+    </method>
+
+    <method name="OpenURL">
+        <arg type="s" direction="in" />
+        <arg type="b" direction="in" />
+    </method>
+  </interface>
+</node>

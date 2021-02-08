@@ -1,0 +1,20 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.ispirata.Hemera.Application">
+    <method name="start">
+    </method>
+    <method name="stop">
+    </method>
+    <method name="quit">
+    </method>
+
+    <method name="openURL">
+        <arg type="s" direction="in" />
+    </method>
+
+    <signal name="transitionErrorOccurred">
+      <arg type="s" direction="out" />
+      <arg type="s" direction="out" />
+    </signal>
+  </interface>
+</node>

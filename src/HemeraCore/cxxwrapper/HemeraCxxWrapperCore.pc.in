@@ -1,0 +1,12 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=@INSTALL_LIB_DIR@
+includedir=@INSTALL_INCLUDE_DIR@/HemeraCxxWrapper
+includedir_qt5=@INSTALL_INCLUDE_DIR@/HemeraQt5SDK
+
+Name: HemeraCxxWrapper Core
+Description: HemeraCxxWrapper Core module
+Version: @HEMERA_QT5_SDK_VERSION@
+Libs: -L${libdir} -lHemeraCxxWrapperCore
+Cflags: -I${includedir}/HemeraCxxCore -I${includedir} -I${includedir_qt5}/HemeraCore -I${includedir_qt5} -std=c++11
+Requires: HemeraQt5SDKCore >= @HEMERA_QT5_SDK_VERSION@ Qt5Core >= 5.1.0 Qt5DBus >= 5.1.0 Qt5Network >= 5.1.0 libsystemd-daemon libsystemd-journal

@@ -1,0 +1,73 @@
+
+if (CMAKE_VERSION VERSION_LESS 2.8.3)
+    message(FATAL_ERROR "Hemera Qt SDK requires at least CMake version 2.8.3")
+endif()
+
+get_filename_component(_hemeraQtSDKTest_install_prefix @CMAKE_INSTALL_PREFIX@ ABSOLUTE)
+
+# For backwards compatibility only. Use HemeraQt5SDKTest_VERSION instead.
+set(HemeraQt5SDKTest_VERSION_STRING @HEMERA_QT5_SDK_VERSION@)
+
+set(HemeraQt5SDKTest_LIBRARIES HemeraQt5SDK::Test)
+
+if (NOT TARGET HemeraQt5SDK::Test)
+
+    set(_HemeraQt5SDKTest_OWN_INCLUDE_DIRS @TEST_INCLUDE_DIRS@)
+    set(HemeraQt5SDKTest_INCLUDE_DIRS ${_HemeraQt5SDKTest_OWN_INCLUDE_DIRS})
+
+    set(HemeraQt5SDKTest_DEFINITIONS "")
+    set(HemeraQt5SDKTest_COMPILE_DEFINITIONS "")
+
+    set(_HemeraQt5SDKTest_MODULE_DEPENDENCIES "Core")
+
+    set(_HemeraQt5SDKTest_FIND_DEPENDENCIES_REQUIRED)
+    if (HemeraQt5SDKTest_FIND_REQUIRED)
+        set(_HemeraQt5SDKTest_FIND_DEPENDENCIES_REQUIRED REQUIRED)
+    endif()
+    set(_HemeraQt5SDKTest_FIND_DEPENDENCIES_QUIET)
+    if (HemeraQt5SDKTest_FIND_QUIETLY)
+        set(_HemeraQt5SDKTest_DEPENDENCIES_FIND_QUIET QUIET)
+    endif()
+    set(_HemeraQt5SDKTest_FIND_VERSION_EXACT)
+    if (HemeraQt5SDKTest_FIND_VERSION_EXACT)
+        set(_HemeraQt5SDKTest_FIND_VERSION_EXACT EXACT)
+    endif()
+
+    foreach(_module_dep ${_HemeraQt5SDKTest_MODULE_DEPENDENCIES})
+        if (NOT HemeraQt5SDK${_module_dep}_FOUND)
+            find_package(HemeraQt5SDK${_module_dep}
+                ${HemeraQt5SDKTest_VERSION_STRING} ${_HemeraQt5SDKTest_FIND_VERSION_EXACT}
+                ${_HemeraQt5SDKTest_DEPENDENCIES_FIND_QUIET}
+                ${_HemeraQt5SDKTest_FIND_DEPENDENCIES_REQUIRED}
+                PATHS "${CMAKE_CURRENT_LIST_DIR}/.." NO_DEFAULT_PATH
+            )
+        endif()
+
+        if (NOT HemeraQt5SDK${_module_dep}_FOUND)
+            set(HemeraQt5SDKTest_FOUND False)
+            return()
+        endif()
+
+        list(APPEND HemeraQt5SDKTest_INCLUDE_DIRS "${HemeraQt5SDK${_module_dep}_INCLUDE_DIRS}")
+        list(APPEND HemeraQt5SDKTest_DEFINITIONS ${HemeraQt5SDK${_module_dep}_DEFINITIONS})
+        list(APPEND HemeraQt5SDKTest_COMPILE_DEFINITIONS ${HemeraQt5SDK${_module_dep}_COMPILE_DEFINITIONS})
+        list(APPEND HemeraQt5SDKTest_EXECUTABLE_COMPILE_FLAGS ${HemeraQt5SDK${_module_dep}_EXECUTABLE_COMPILE_FLAGS})
+    endforeach()
+    list(REMOVE_DUPLICATES HemeraQt5SDKTest_INCLUDE_DIRS)
+    list(REMOVE_DUPLICATES HemeraQt5SDKTest_DEFINITIONS)
+    list(REMOVE_DUPLICATES HemeraQt5SDKTest_COMPILE_DEFINITIONS)
+    if (HemeraQt5SDKTest_EXECUTABLE_COMPILE_FLAGS)
+        list(REMOVE_DUPLICATES HemeraQt5SDKTest_EXECUTABLE_COMPILE_FLAGS)
+    endif()
+
+    set(_HemeraQt5SDKTest_LIB_DEPENDENCIES "HemeraQt5SDK::Core")
+
+    # Target management
+    include("${CMAKE_CURRENT_LIST_DIR}/HemeraQt5SDKTestTargets.cmake")
+
+    set_property(TARGET HemeraQt5SDK::Test PROPERTY
+        INTERFACE_INCLUDE_DIRECTORIES ${_HemeraQt5SDKTest_OWN_INCLUDE_DIRS})
+    set_property(TARGET HemeraQt5SDK::Test PROPERTY
+        INTERFACE_COMPILE_DEFINITIONS ${HemeraQt5SDKTest_COMPILE_DEFINITIONS})
+
+endif()

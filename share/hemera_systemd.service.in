@@ -1,0 +1,23 @@
+[Unit]
+Description=%1
+After=local-fs.target
+
+[Service]
+Type=notify
+ExecStart=%2
+# Other exec options
+%3
+
+StandardOutput=journal
+
+# Security and limits
+NoNewPrivileges=true
+
+#[watchdog]
+%4
+
+#[restart on failure]
+%5
+
+# Devices
+%6

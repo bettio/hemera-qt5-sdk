@@ -1,0 +1,52 @@
+
+if (CMAKE_VERSION VERSION_LESS 2.8.9)
+    message(FATAL_ERROR "HemeraQt5SDK requires at least CMake version 2.8.9")
+endif()
+
+if (NOT HemeraQt5SDK_FIND_COMPONENTS)
+    set(HemeraQt5SDK_NOT_FOUND_MESSAGE "The HemeraQt5SDK package requires at least one component")
+    set(HemeraQt5SDK_FOUND False)
+    return()
+endif()
+
+set(_HemeraQt5SDK_FIND_PARTS_REQUIRED)
+if (HemeraQt5SDK_FIND_REQUIRED)
+    set(_HemeraQt5SDK_FIND_PARTS_REQUIRED REQUIRED)
+endif()
+set(_HemeraQt5SDK_FIND_PARTS_QUIET)
+if (HemeraQt5SDK_FIND_QUIETLY)
+    set(_HemeraQt5SDK_FIND_PARTS_QUIET QUIET)
+endif()
+
+get_filename_component(_hemera_qt_sdk_install_prefix "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+
+set(_HemeraQt5SDK_NOTFOUND_MESSAGE)
+
+foreach(module ${HemeraQt5SDK_FIND_COMPONENTS})
+    find_package(HemeraQt5SDK${module}
+        ${_HemeraQt5SDK_FIND_PARTS_QUIET}
+        ${_HemeraQt5SDK_FIND_PARTS_REQUIRED}
+        PATHS "${_hemera_qt_sdk_install_prefix}" NO_DEFAULT_PATH
+    )
+    if (NOT HemeraQt5SDK${module}_FOUND)
+        if (HemeraQt5SDK_FIND_REQUIRED_${module})
+            set(_HemeraQt5SDK_NOTFOUND_MESSAGE "${_HemeraQt5SDK_NOTFOUND_MESSAGE}Failed to find HemeraQt5SDK component \"${module}\" config file at \"${_hemera_qt_sdk_install_prefix}/HemeraQt5SDK${module}/HemeraQt5SDK${module}Config.cmake\"\n")
+        elseif(NOT HemeraQt5SDK_FIND_QUIETLY)
+            message(WARNING "Failed to find HemeraQt5SDK component \"${module}\" config file at \"${_hemera_qt_sdk_install_prefix}/HemeraQt5SDK${module}/HemeraQt5SDK${module}Config.cmake\"")
+        endif()
+    endif()
+endforeach()
+
+if (_HemeraQt5SDK_NOTFOUND_MESSAGE)
+    set(HemeraQt5SDK_NOT_FOUND_MESSAGE "${_HemeraQt5SDK_NOTFOUND_MESSAGE}")
+    set(HemeraQt5SDK_FOUND False)
+endif()
+
+# Variables
+set(HEMERAQTSDK_DATA_DIR "@CONF_DATA_DIR@")
+set(HEMERAQTSDK_DBUS_INTERFACES_DIR "@DBUS_INTERFACES_DIR@")
+set(HEMERAQTSDK_QML_PLUGINS_DIR "@CONF_QML_PLUGINS_DIR@")
+
+# Macros
+include("${CMAKE_CURRENT_LIST_DIR}/HemeraPaths.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/HemeraMacros.cmake")

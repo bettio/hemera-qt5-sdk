@@ -1,0 +1,16 @@
+[Unit]
+Description=Socket for Hemera root operation %1
+
+[Socket]
+# Operation socket
+ListenStream=/run/hemera/rootoperations/%1
+# We want to spawn a single helper for each invocation.
+Accept=true
+
+# TODO
+#User=%2
+#Group=%3
+#SocketMode=0660
+
+[Install]
+WantedBy=sockets.target

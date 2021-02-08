@@ -1,0 +1,16 @@
+[Unit]
+Description=Socket for Hemera root operation com.ispirata.Hemera.SetSystemConfigOperation
+
+[Socket]
+# Operation socket
+ListenStream=/run/hemera/rootoperations/com.ispirata.Hemera.SetSystemConfigOperation
+# We want to spawn a single helper for each invocation.
+Accept=true
+
+# Be permissive.
+#User=%2
+#Group=%3
+#SocketMode=0660
+
+[Install]
+WantedBy=sockets.target

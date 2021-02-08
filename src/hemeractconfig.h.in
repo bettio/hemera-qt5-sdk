@@ -1,0 +1,36 @@
+#ifndef HEMERA_HEMERACTCONFIG_H
+#define HEMERA_HEMERACTCONFIG_H
+
+namespace Hemera {
+
+namespace StaticConfig {
+
+constexpr const char *haFilesPath() { return "@HEMERA_SERVICE_DIR@"; }
+constexpr const char *haBaseResourceDir() { return "@HEMERA_APPLICATION_BASE_RESOURCE_DIR@"; }
+constexpr const char *haOwnResourceDir() { return "@HEMERA_APPLICATION_OWN_RESOURCE_DIR@"; }
+constexpr const char *iconsDir() { return "@HEMERA_SERVICE_ICONS_DIR@"; }
+constexpr const char *debugScriptsDir() { return "@HEMERA_APPLICATION_DEBUG_SCRIPTS_DIR@"; }
+constexpr const char *hemeraApplicationInstallDir() { return "@HEMERA_APPLICATION_INSTALL_BIN_DIR@"; }
+constexpr const char *hemeraApplicationBaseResourceDir() { return "@HEMERA_APPLICATION_BASE_RESOURCE_DIR@"; }
+constexpr const char *hemeraApplicationOwnResourceDir() { return "@HEMERA_APPLICATION_OWN_RESOURCE_DIR@"; }
+constexpr const char *hemeraRootOperationInstallDir() { return "@HEMERA_ROOTOPERATION_INSTALL_BIN_DIR@"; }
+constexpr const char *hemeraQmlImportsPath() { return "@INSTALL_QML_PLUGINS_DIR@"; }
+constexpr const char *hemeraCompilerPluginsDir() { return "@INSTALL_COMPILER_PLUGINS_DIR@"; }
+constexpr const char *hemeraConfigurePluginsDir() { return "@INSTALL_CONFIGURE_PLUGINS_DIR@"; }
+constexpr const char *hemeraGeneratorPluginsDir() { return "@INSTALL_GENERATOR_PLUGINS_DIR@"; }
+constexpr const char *hemeraPropertiesPluginsDir() { return "@INSTALL_PROPERTIES_PLUGINS_DIR@"; }
+constexpr const char *hemeraDataDir() { return "@INSTALL_DATA_DIR@"; }
+constexpr const char *hemeraToolsInstallDir() { return "@HEMERA_APPLICATION_TOOLS_DIR@"; }
+constexpr const char *hemeraStarsRuntimeDir() { return "@HEMERA_STARS_RUNTIME_DIR@"; }
+constexpr const char *systemdUserDir() { return "@HEMERA_APPLICATION_SYSTEMD_USER_DIR@"; }
+constexpr const char *translationsDir() { return "@INSTALL_TRANSLATIONS_DIR@"; }
+constexpr const char *qt5SDKVersion() { return "@HEMERA_QT5_SDK_VERSION_STRING@"; }
+constexpr int qt5SDKMajorVersion() { return @HEMERA_QT5_SDK_ABI_VERSION@; }
+constexpr int qt5SDKMinorVersion() { return @HEMERA_QT5_SDK_MINOR_VERSION@; }
+constexpr int qt5SDKReleaseVersion() { return @HEMERA_QT5_SDK_RELEASE_VERSION@; }
+
+}
+
+}
+
+#endif

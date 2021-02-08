@@ -1,0 +1,11 @@
+# QDBus doesn't call dbus_shutdown, so some D-Bus internal data structures are leaked.
+# We never call any low-level dbus message creation functions ourselves - if there are leaks,
+# they're either caused by not calling dbus_shutdown, QDBus bugs or libdbus bugs - neither of which
+# are our problem.
+
+{
+    Initial session bus registration message
+    Memcheck:Leak
+    fun:malloc
+    fun:dbus_message_new_empty_header
+}

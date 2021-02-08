@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+libdir=@INSTALL_LIB_DIR@
+includedir=@INSTALL_INCLUDE_DIR@/HemeraQt5SDK
+
+Name: HemeraQt5SDK Gui
+Description: HemeraQt5SDK Gui module
+Version: @HEMERA_QT5_SDK_VERSION@
+Libs: -L${libdir} -lHemeraQt5SDKGui
+Cflags: -I${includedir}/HemeraGui -I${includedir}
+Requires: HemeraQt5SDKCore >= @HEMERA_QT5_SDK_VERSION@ Qt5Gui >= 5.1.0 Qt5Widgets >= 5.1.0
